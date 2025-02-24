@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,5 +9,435 @@
 </head>
 <body>
     
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Резюме</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .tab-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab-nav-item {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            color: white;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .tab-nav-item.active {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        .tab-nav-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2575fc;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        .form-control:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+        }
+        .work-experience-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+            transition: box-shadow 0.3s ease;
+        }
+        .work-experience-item:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+        }
+        .welcome-page {
+            text-align: center;
+            padding: 20px;
+        }
+        .welcome-page img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .photo-preview {
+            max-width: 150px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .print-content, .print-content * {
+                visibility: visible;
+            }
+            .print-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация (вкладки) -->
+    <div class="tab-nav">
+        <div class="tab-nav-item" onclick="showWelcomePage()">Создать резюме</div>
+        <div class="tab-nav-item active" onclick="showPersonalDataPage()">Личные данные</div>
+        <div class="tab-nav-item" onclick="showExperiencePage()">Опыт работы</div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Страница приветствия -->
+        <div id="welcomePage" class="welcome-page" style="display: none;">
+            <h1>Добро пожаловать!</h1>
+            <p>Начните создание своего резюме прямо сейчас.</p>
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Люди в ожидании собеседования">
+            <button class="btn btn-primary mt-4" onclick="startResume()">Начать</button>
+        </div>
+
+        <!-- Страница 1: Личные данные -->
+        <div id="personalDataPage">
+            <h1>Личные данные</h1>
+            <form id="personalDataForm">
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">ФИО</label>
+                    <input type="text" class="form-control" id="fullName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Телефон</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                </div>
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Фото</label>
+                    <input type="file" class="form-control" id="photo" accept="image/*" onchange="handlePhotoUpload(event)">
+                </div>
+                <div id="photoPreviewContainer">
+                    <!-- Здесь будет отображаться превью фото -->
+                </div>
+                <button type="submit" class="btn btn-primary">Далее</button>
+            </form>
+        </div>
+
+        <!-- Страница 2: Опыт работы -->
+        <div id="experiencePage" style="display: none;">
+            <h1>Опыт работы</h1>
+            <form id="experienceForm">
+                <div class="mb-3">
+                    <label for="company" class="form-label">Компания</label>
+                    <input type="text" class="form-control" id="company" required>
+                </div>
+                <div class="mb-3">
+                    <label for="position" class="form-label">Должность</label>
+                    <input type="text" class="form-control" id="position" required>
+                </div>
+                <div class="mb-3">
+                    <label for="years" class="form-label">Годы работы</label>
+                    <input type="text" class="form-control" id="years" required>
+                </div>
+                <button type="button" class="btn btn-success" onclick="saveWorkExperience()">Сохранить</button>
+                <button type="button" class="btn btn-primary" onclick="printPage()">Распечатать</button>
+            </form>
+
+            <!-- Список добавленных мест работы -->
+            <div id="workExperienceList" class="mt-4"></div>
+        </div>
+    </div>
+
+    <script>
+        // Данные для резюме
+        let resumeData = {
+            personalData: null,
+            workExperiences: []
+        };
+
+        // Текущий индекс редактируемого места работы
+        let editingIndex = null;
+
+        // Загрузка данных из localStorage
+        if (localStorage.getItem('resumeData')) {
+            resumeData = JSON.parse(localStorage.getItem('resumeData'));
+        }
+
+        // Обработка формы личных данных
+        document.getElementById('personalDataForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Сохраняем личные данные
+            resumeData.personalData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                photo: resumeData.personalData?.photo || null, // Сохраняем фото, если оно есть
+            };
+            localStorage.setItem('resumeData', JSON.stringify(resumeData));
+
+            // Переход на страницу опыта работы
+            showExperiencePage();
+        });
+
+        // Функция для загрузки фото
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Сохраняем фото в формате Base64
+                    resumeData.personalData = resumeData.personalData || {};
+                    resumeData.personalData.photo = e.target.result;
+                    localStorage.setItem('resumeData', JSON.stringify(resumeData));
+
+                    // Отображаем превью фото
+                    const photoPreviewContainer = document.getElementById('photoPreviewContainer');
+                    photoPreviewContainer.innerHTML = `<img src="${e.target.result}" alt="Фото" class="photo-preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Функция для добавления/редактирования места работы
+        function saveWorkExperience() {
+            const company = document.getElementById('company').value;
+            const position = document.getElementById('position').value;
+            const years = document.getElementById('years').value;
+
+            if (company && position && years) {
+                if (editingIndex !== null) {
+                    // Редактируем существующее место работы
+                    resumeData.workExperiences[editingIndex] = { company, position, years };
+                    editingIndex = null; // Сбрасываем индекс редактирования
+                } else {
+                    // Добавляем новое место работы
+                    resumeData.workExperiences.push({ company, position, years });
+                }
+                localStorage.setItem('resumeData', JSON.stringify(resumeData));
+
+                // Очищаем поля формы
+                document.getElementById('company').value = '';
+                document.getElementById('position').value = '';
+                document.getElementById('years').value = '';
+
+                // Обновляем список мест работы
+                renderWorkExperiences();
+            } else {
+                alert('Заполните все поля!');
+            }
+        }
+
+        // Функция для отображения списка мест работы
+        function renderWorkExperiences() {
+            const workExperienceList = document.getElementById('workExperienceList');
+            workExperienceList.innerHTML = '';
+
+            resumeData.workExperiences.forEach((experience, index) => {
+                const item = document.createElement('div');
+                item.className = 'work-experience-item';
+                item.innerHTML = `
+                    <p><strong>Компания:</strong> ${experience.company}</p>
+                    <p><strong>Должность:</strong> ${experience.position}</p>
+                    <p><strong>Годы работы:</strong> ${experience.years}</p>
+                    <button class="btn btn-primary btn-sm" onclick="editWorkExperience(${index})">Редактировать</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteWorkExperience(${index})">Удалить</button>
+                `;
+                workExperienceList.appendChild(item);
+            });
+        }
+
+        // Функция для редактирования места работы
+        function editWorkExperience(index) {
+            const experience = resumeData.workExperiences[index];
+            document.getElementById('company').value = experience.company;
+            document.getElementById('position').value = experience.position;
+            document.getElementById('years').value = experience.years;
+            editingIndex = index; // Сохраняем индекс редактируемого элемента
+        }
+
+        // Функция для удаления места работы
+        function deleteWorkExperience(index) {
+            resumeData.workExperiences.splice(index, 1);
+            localStorage.setItem('resumeData', JSON.stringify(resumeData));
+            renderWorkExperiences();
+        }
+
+        // Функция для печати страницы
+        function printPage() {
+            // Создаем временный элемент для печати
+            const printContent = document.createElement('div');
+            printContent.className = 'print-content';
+
+            // Добавляем личные данные
+            if (resumeData.personalData) {
+                const personalDataHTML = `
+                    <h1>Личные данные</h1>
+                    ${resumeData.personalData.photo ? `<img src="${resumeData.personalData.photo}" alt="Фото" class="photo-preview">` : ''}
+                    <p><strong>ФИО:</strong> ${resumeData.personalData.fullName}</p>
+                    <p><strong>Email:</strong> ${resumeData.personalData.email}</p>
+                    <p><strong>Телефон:</strong> ${resumeData.personalData.phone}</p>
+                `;
+                printContent.innerHTML += personalDataHTML;
+            }
+
+            // Добавляем опыт работы
+            if (resumeData.workExperiences.length > 0) {
+                const experienceHTML = `
+                    <h1>Опыт работы</h1>
+                    ${resumeData.workExperiences.map(experience => `
+                        <div class="work-experience-item">
+                            <p><strong>Компания:</strong> ${experience.company}</p>
+                            <p><strong>Должность:</strong> ${experience.position}</p>
+                            <p><strong>Годы работы:</strong> ${experience.years}</p>
+                        </div>
+                    `).join('')}
+                `;
+                printContent.innerHTML += experienceHTML;
+            }
+
+            // Добавляем временный элемент в body
+            document.body.appendChild(printContent);
+
+            // Печатаем
+            window.print();
+
+            // Удаляем временный элемент после печати
+            document.body.removeChild(printContent);
+        }
+
+        // Функция для перехода на страницу личных данных
+        function showPersonalDataPage() {
+            document.getElementById('welcomePage').style.display = 'none';
+            document.getElementById('personalDataPage').style.display = 'block';
+            document.getElementById('experiencePage').style.display = 'none';
+            updateNav('personal');
+
+            // Отображаем превью фото, если оно есть
+            const photoPreviewContainer = document.getElementById('photoPreviewContainer');
+            if (resumeData.personalData?.photo) {
+                photoPreviewContainer.innerHTML = `<img src="${resumeData.personalData.photo}" alt="Фото" class="photo-preview">`;
+            } else {
+                photoPreviewContainer.innerHTML = '';
+            }
+        }
+
+        // Функция для перехода на страницу опыта работы
+        function showExperiencePage() {
+            document.getElementById('welcomePage').style.display = 'none';
+            document.getElementById('personalDataPage').style.display = 'none';
+            document.getElementById('experiencePage').style.display = 'block';
+            updateNav('experience');
+
+            // Отображаем список мест работы
+            renderWorkExperiences();
+        }
+
+        // Функция для отображения страницы приветствия
+        function showWelcomePage() {
+            document.getElementById('welcomePage').style.display = 'block';
+            document.getElementById('personalDataPage').style.display = 'none';
+            document.getElementById('experiencePage').style.display = 'none';
+        }
+
+        // Функция для начала создания резюме
+        function startResume() {
+            document.getElementById('welcomePage').style.display = 'none';
+            document.getElementById('personalDataPage').style.display = 'block';
+            document.getElementById('experiencePage').style.display = 'none';
+            updateNav('personal');
+        }
+
+        // Функция для обновления активной кнопки навигации
+        function updateNav(activePage) {
+            const navItems = document.querySelectorAll('.tab-nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            if (activePage === 'personal') {
+                document.querySelector('.tab-nav-item:nth-child(2)').classList.add('active');
+            } else if (activePage === 'experience') {
+                document.querySelector('.tab-nav-item:nth-child(3)').classList.add('active');
+            }
+        }
+
+        // Загрузка данных при открытии страницы
+        if (resumeData.personalData) {
+            document.getElementById('fullName').value = resumeData.personalData.fullName || '';
+            document.getElementById('email').value = resumeData.personalData.email || '';
+            document.getElementById('phone').value = resumeData.personalData.phone || '';
+        }
+
+        // Показываем страницу приветствия при загрузке
+        showWelcomePage();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
